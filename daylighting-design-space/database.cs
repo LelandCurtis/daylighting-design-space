@@ -18,19 +18,22 @@ namespace DaylightingDesignSpace
         {
         }
 
-        public Dictionary<string, Gene> myDict = new Dictionary<string, Gene>();
+        public Dictionary<string, Genome> myDict = new Dictionary<string, Genome>();
 
 
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("full name A", "A", "desc A", GH_ParamAccess.item);
-            pManager.AddNumberParameter("full name B", "B", "desc B", GH_ParamAccess.item);
+            pManager.AddTextParameter("location", "loc", "Climate location", GH_ParamAccess.item);
+
+
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("output1", "test output", "this is a description", GH_ParamAccess.list);
+            pManager.AddTextParameter("genome", "genome", "this is a list of all of the input parameters that define the unique iteration", GH_ParamAccess.list);
+            pManager.AddTextParameter("phenome", "phenome", "this is a list of all of the output metrics that define the unique iteration", GH_ParamAccess.list);
+            pManager.AddTextParameter("identity", "identity", "this is a list of the generation and number of each iteration", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -40,10 +43,10 @@ namespace DaylightingDesignSpace
             int myint = 0;
             DA.GetData(1, ref myint);
 
-            Gene myGene = new Gene(mystring, myint);
+            Genome myGene = new Genome(xxxxx);
             myDict.Add(myGene.ToString(), myGene);
             List<string> myList = new List<string>();
-            foreach (KeyValuePair<string, Gene> kvp in myDict)
+            foreach (KeyValuePair<string, Genome> kvp in myDict)
             {
                 myList.Add(kvp.Key);
             }
