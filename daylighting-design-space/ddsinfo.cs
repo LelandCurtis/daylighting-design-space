@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 
 namespace daylighting_design_space
 {
-    public class daylighting-design-spaceInfo : GH_AssemblyInfo
+    public class ddsInfo : GH_AssemblyInfo
   {
     public override string Name
     {

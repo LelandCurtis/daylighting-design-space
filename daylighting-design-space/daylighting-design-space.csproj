@@ -57,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="daylightingdesignspaceComponent.cs" />
-    <Compile Include="daylighting-design-spaceInfo.cs" />
+    <Compile Include="ddsinfo.cs" />
     <Compile Include="MyComponent1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
