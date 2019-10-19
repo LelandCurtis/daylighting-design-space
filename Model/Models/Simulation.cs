@@ -8,7 +8,7 @@ namespace Model.Models
         public string Location;
 
         [LoadColumn(1)]
-        public string Orientation;
+        public float Orientation;
 
         [LoadColumn(2)]
         public float ObstructAngle;
@@ -20,10 +20,10 @@ namespace Model.Models
         public float Depth;
 
         [LoadColumn(5)]
-        public string CeilingHeight;
+        public float CeilingHeight;
 
         [LoadColumn(6)]
-        public float WallThicknes;
+        public float WallThickness;
         
         [LoadColumn(7)]
         public float WindowWidth;
@@ -51,5 +51,8 @@ namespace Model.Models
         
         [LoadColumn(15)]
         public float ShadeTriggerDistance;
+        
+        [LoadColumn(18)]
+        public float DA300;
     }
 }
