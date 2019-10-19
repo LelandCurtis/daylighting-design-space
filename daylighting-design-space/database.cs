@@ -4,49 +4,54 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-namespace daylighting_design_space
+namespace DaylightingDesignSpace
 {
-    public class database : GH_Component
+    public class Database : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the MyComponent2 class.
         /// </summary>
-        public database()
+        public Database()
           : base("Database", "Nickname",
               "Description",
               "DDS", "Cat01")
         {
         }
 
+        public Dictionary<string, Gene> myDict = new Dictionary<string, Gene>();
 
-        /// add other stuff here
-        Dictionary<int, string> myDict = new Dictionary<int, string>();
 
-     
 
-        /// <summary>
-        /// Registers all the input parameters for this component.
-        /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddBooleanParameter("name", "this is my nickname", "yep yep", GH_ParamAccess.item, true);
+            pManager.AddTextParameter("full name A", "A", "desc A", GH_ParamAccess.item);
+            pManager.AddNumberParameter("full name B", "B", "desc B", GH_ParamAccess.item);
         }
 
-        /// <summary>
-        /// Registers all the output parameters for this component.
-        /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-
+            pManager.AddTextParameter("output1", "test output", "this is a description", GH_ParamAccess.list);
         }
 
-        /// <summary>
-        /// This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            string mystring = null;
+            DA.GetData(0, ref mystring);
+            int myint = 0;
+            DA.GetData(1, ref myint);
+
+            Gene myGene = new Gene(mystring, myint);
+            myDict.Add(myGene.ToString(), myGene);
+            List<string> myList = new List<string>();
+            foreach (KeyValuePair<string, Gene> kvp in myDict)
+            {
+                myList.Add(kvp.Key);
+            }
+
+            DA.SetDataList(0, myList);
+
         }
+
 
         /// <summary>
         /// Provides an Icon for the component.

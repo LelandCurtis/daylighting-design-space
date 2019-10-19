@@ -56,9 +56,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="daylightingdesignspaceComponent.cs" />
+    <Compile Include="Gene.cs" />
     <Compile Include="ddsinfo.cs" />
-    <Compile Include="MyComponent1.cs" />
+    <Compile Include="ValueComparer.cs" />
     <Compile Include="database.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

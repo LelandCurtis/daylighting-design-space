@@ -2,9 +2,9 @@
 using System.Drawing;
 using Grasshopper.Kernel;
 
-namespace daylighting_design_space
+namespace DaylightingDesignSpace
 {
-    public class ddsInfo : GH_AssemblyInfo
+    public class DDSInfo : GH_AssemblyInfo
   {
     public override string Name
     {
