@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
 using System.IO;
-using System.Linq;
 using Microsoft.ML;
 using Microsoft.ML.Data;
-using Microsoft.ML.Transforms;
-using static Microsoft.ML.Transforms.NormalizingEstimator;
 using Model.Models;
 
 namespace Model
@@ -43,21 +37,6 @@ namespace Model
             EstimatorChain<ColumnConcatenatingTransformer> pipeline = mlContext.Transforms
                 .CopyColumns("Label", nameof(Simulation.DA300))
                 .Append(mlContext.Transforms.Categorical.OneHotEncoding("LocationEncoded", nameof(Simulation.Location)))
-                .Append(mlContext.Transforms.NormalizeMeanVariance(nameof(Simulation.Orientation)))
-                .Append(mlContext.Transforms.NormalizeMeanVariance(nameof(Simulation.ObstructAngle)))
-                .Append(mlContext.Transforms.NormalizeMeanVariance(nameof(Simulation.Depth)))
-                .Append(mlContext.Transforms.NormalizeMeanVariance(nameof(Simulation.Width)))
-                .Append(mlContext.Transforms.NormalizeMeanVariance(nameof(Simulation.CeilingHeight)))
-                .Append(mlContext.Transforms.NormalizeMeanVariance(nameof(Simulation.WallThickness)))
-                .Append(mlContext.Transforms.NormalizeMeanVariance(nameof(Simulation.WindowWidth)))
-                .Append(mlContext.Transforms.NormalizeMeanVariance(nameof(Simulation.WindowBottomSill)))
-                .Append(mlContext.Transforms.NormalizeMeanVariance(nameof(Simulation.WindowTopSill)))
-                .Append(mlContext.Transforms.NormalizeMeanVariance(nameof(Simulation.SpacingBetweenWindow)))
-                .Append(mlContext.Transforms.NormalizeMeanVariance(nameof(Simulation.WWR)))
-                .Append(mlContext.Transforms.NormalizeMeanVariance(nameof(Simulation.CeilingReflectance)))
-                .Append(mlContext.Transforms.NormalizeMeanVariance(nameof(Simulation.WallReflectance)))
-                .Append(mlContext.Transforms.NormalizeMeanVariance(nameof(Simulation.FloorReflectance)))
-                .Append(mlContext.Transforms.NormalizeMeanVariance(nameof(Simulation.ShadeTriggerDistance)))
                 .Append(mlContext.Transforms.Concatenate("Features", "LocationEncoded", nameof(Simulation.Orientation),
                     nameof(Simulation.Depth), nameof(Simulation.Width), nameof(Simulation.CeilingHeight),
                     nameof(Simulation.WallThickness), nameof(Simulation.WindowWidth),
@@ -75,9 +54,9 @@ namespace Model
             var model = pipeline.Fit(dataView);
 
             Console.WriteLine("===== Evaluating Model's accuracy with Test data =====");
-            IDataView predictions = model.Transform(dataViewTest);
+            IDataView predictions = model.Transform(dataView);
             var metrics =
-                mlContext.Regression.Evaluate(predictions, labelColumnName: "Label", scoreColumnName: "DA300");
+                mlContext.Regression.Evaluate(predictions, labelColumnName: "Label", scoreColumnName: nameof(Simulation.DA300));
             Console.WriteLine($"*       RSquared Score:      {metrics.RSquared:0.##}");
             Console.WriteLine($"*       Root Mean Squared Error:      {metrics.RootMeanSquaredError:#.##}");
             Console.WriteLine($"*       Mean Squared Error:      {metrics.MeanSquaredError:#.##}");

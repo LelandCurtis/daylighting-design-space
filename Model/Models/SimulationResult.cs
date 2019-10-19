@@ -10,7 +10,7 @@ namespace Model.Models
 //        [ColumnName("DA200")]
 //        public float DA200;
         
-        [ColumnName("DA300")]
+        [ColumnName("Score")]
         public float DA300;
         
 //        [ColumnName("DA500")]
