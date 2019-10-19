@@ -8,7 +8,6 @@ namespace daylighting_design_space
 {
     public class MyComponent1 : GH_Component, IGH_VariableParameterComponent
     {
-        var x = 0;
 
         public MyComponent1()
           : base("ValueComparer", "VComp",
@@ -19,8 +18,8 @@ namespace daylighting_design_space
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("Output01", "01", "First value should be 'correct' value, second value should be 'ML prediction', third value is optional weighting value (default weight is 1.0)", GH_ParamAccess.list);
-
+            pManager.AddTextParameter("Output01", "01", "First value should be 'correct' value, second value should be 'ML prediction', third value is optional weighting value (default weight is 1.0)", GH_ParamAccess.list);
+            pManager.AddNumberParameter("", "", "", GH_ParamAccess.tree);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
@@ -31,13 +30,13 @@ namespace daylighting_design_space
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             
-            x++;
+            
            
         }
 
         public bool CanInsertParameter(GH_ParameterSide side, int index)
         {
-            throw new NotImplementedException();
+            if 
         }
 
         public bool CanRemoveParameter(GH_ParameterSide side, int index)
