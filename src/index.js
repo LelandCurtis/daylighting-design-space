@@ -14,23 +14,3 @@
  * @property {Triple}
  */
 export { Triple } from "./api/Triple";
-/**
- * Description of BiggerTriple Class.
- * @property {BiggerTriple}
- */
-export { BiggerTriple } from "./api/Triple";
-/**
- * Description of Polygon Class.
- * @property {BiggerTriple}
- */
-export { Polygon } from "./api/Polygon";
-/**
- * Description of Square Class.
- * @property {Square}
- */
-export { Square } from "./api/Polygon";
-/**
- * Description of Rectangle Class.
- * @property {Rectangle}
- */
-export { Rectangle } from "./api/Polygon";

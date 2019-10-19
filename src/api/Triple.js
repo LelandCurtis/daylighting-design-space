@@ -11,16 +11,3 @@ export class Triple {
     return n * 3;
   }
 }
-
-// super.prop in this example is used for accessing super-properties from
-// a parent class. This works fine in static methods too:
-export class BiggerTriple extends Triple {
-  /**
-   * Triple the number twice.
-   * @param {Number} n A number to triple.
-   * @returns {Number} The bigger tripled number
-   */
-  static triple(n) {
-    return super.triple(n) * super.triple(n);
-  }
-}
