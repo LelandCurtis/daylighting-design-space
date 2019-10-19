@@ -59,6 +59,7 @@
     <Compile Include="daylightingdesignspaceComponent.cs" />
     <Compile Include="daylighting-design-spaceInfo.cs" />
     <Compile Include="MyComponent1.cs" />
+    <Compile Include="database.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
