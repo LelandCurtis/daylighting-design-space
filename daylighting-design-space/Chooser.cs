@@ -105,75 +105,78 @@ namespace DaylightingDesignSpace
 
 
             int numberOfGenes = geneMatrix.Length;
-                    int lastGeneIndex = numberOfGenes - 1;
+            int lastGeneIndex = numberOfGenes - 1;
 
-                    int totalPermutations = 1;
+            int totalPermutations = 1;
 
-                    for (int i = 0; i < numberOfGenes; i++)
+            for (int i = 0; i < numberOfGenes; i++)
+            {
+                totalPermutations = totalPermutations * geneMatrix.GetLength(1);
+            }
+
+
+            double[,] allPermutations = new double[totalPermutations, numberOfGenes];
+            List<string> allPermsOutput = new List<string>();
+
+            int[] tickers = new int[numberOfGenes];
+            int[] tickerSizes = new int[numberOfGenes];
+
+            for (int j = 0; j < tickers.Length; j++)
+            {
+                tickers[j] = 0;
+                //tickerSizes = geneMatrix[0,0];
+            }
+
+
+            //foreach ticker, if you are greater than or equal to the number of items in you, then reset to zero and make your parent increase by 1
+
+            for (int j = 0; j < totalPermutations; j++)
+            {
+                for (int jj = 0; jj < numberOfGenes; jj++)
+                {
+                    /*
+                    if (tickers[jj] >= geneMatrix[jj].Count)
                     {
-                        totalPermutations = totalPermutations * geneMatrix[i].Count;
+                        tickers[jj - 1]++;
+                        tickers[jj] = 0;
                     }
-
-
-                    double[,] allPermutations = new double[totalPermutations, numberOfGenes];
-                    List<string> allPermsOutput = new List<string>();
-
-                    int[] tickers = new int[numberOfGenes];
-
-
-                    for (int j = 0; j < tickers.Length; j++)
-                    {
-                        tickers[j] = 0;
-                    }
-
-                    int engine = 0;
-
-                    //foreach ticker, if you are greater than or equal to the number of items in you, then reset to zero and make your parent increase by 1
-
-                    for (int j = 0; j < totalPermutations.Length; j++)
-                    {
-                        for (int jj = 0; jj < numberOfGenes; jj++)
-                        {
-                            if (tickers[jj] >= geneMatrix[jj].Count)
-                            {
-                                tickers[jj - 1]++;
-                                tickers[jj] = 0;
-                            }
-                        }
-
-                        //for each gene, add [j, geneIndex] = geneMatrix[j,tickers[jjj]
-                        for (int jjj = 0; jjj < numberOfGenes; jjj++)
-                        {
-                            allPermutations[j, jjj] = geneMatrix[j, tickers[jjj]];
-                        }
-
-                        allPermsOutput.Add("");
-
-                        for (int k = 0; k < numberOfGenes; k++)
-                        {
-                            allPermsOutput[j] += allPermutations[j, k];
-                        }
-
-                    }
-
-
-
-                    this.m_iteration++;
-
-                    //set outputs
-                    DA.SetDataList(0, allPermsOutput);
-
-
-
-
-
-
-
-
-
-
-
+                */
                 }
+
+                //for each gene, add [j, geneIndex] = geneMatrix[j,tickers[jjj]
+                for (int jjj = 0; jjj < numberOfGenes; jjj++)
+                {
+                    allPermutations[j, jjj] = geneMatrix[j, tickers[jjj]];
+                }
+
+                allPermsOutput.Add("");
+
+                for (int k = 0; k < numberOfGenes; k++)
+                {
+                    allPermsOutput[j] += allPermutations[j, k];
+                }
+
+            }
+
+
+
+            this.m_iteration++;
+
+            //set outputs
+            DA.SetDataList(0, allPermsOutput);
+
+
+
+
+
+
+
+
+
+
+
+                
+        /*
                 else if (this.m_iteration == 2)
                 {
                     //if second run, do y
@@ -186,9 +189,9 @@ namespace DaylightingDesignSpace
 
 
                 }
+             */
 
-
-            }
+            
 
 
         }
