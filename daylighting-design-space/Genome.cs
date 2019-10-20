@@ -232,7 +232,7 @@ namespace DaylightingDesignSpace
 
         public override Guid ComponentGuid
         {
-            get { return new Guid("1e7ab52e-5fc5-4718-8b0f-1d29b9da7f4c"); }
+            get { return new Guid("3b9ceca3-7663-4a91-a3a8-8f5ff24b5be1"); }
         }
 
        
