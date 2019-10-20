@@ -25,6 +25,8 @@ namespace DaylightingDesignSpace
         public double wwr;
         public double shadeTrig;
         public bool isValid = true;
+        public int generation;
+
         public string ID() {
             return this.ToString();
         }
@@ -204,9 +206,9 @@ namespace DaylightingDesignSpace
     }
 
 
-    public class GenomeParamter : GH_Param<GenomeGoo>
+    public class GenomeParameter : GH_Param<GenomeGoo>
     {
-        public GenomeParamter()
+        public GenomeParameter()
           : base(new GH_InstanceDescription("Genome", "Base class for Genome", "Maintains a collection of genomes", "Occamy", "Panels"))
         {
         }

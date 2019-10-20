@@ -9,49 +9,68 @@ namespace DaylightingDesignSpace
     public class Database : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the MyComponent2 class.
+        /// Initializes a new instance of the Database class.
         /// </summary>
         public Database()
-          : base("Database", "Nickname",
-              "Description",
+          : base("Database", "Database",
+              "This component combines the phenome and genome of every iteration and adds it to a genome and phenome dictionary database",
               "DDS", "Cat01")
         {
         }
 
-        public Dictionary<string, Genome> myDict = new Dictionary<string, Genome>();
+        /// <summary>
+        /// Initialize dictionaries
+        /// </summary>
+        public Dictionary<string, Genome> gDict = new Dictionary<string, Genome>();
+        public Dictionary<string, Phenome> pDict = new Dictionary<string, Phenome>();
 
-
+        /// take a genome and add it to a persistent list.
+        List<Genome> genomeList = new List<Genome>();
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("location", "loc", "Climate location", GH_ParamAccess.item);
-
+            pManager.AddParameter(new GenomeParameter(), "Genome", "G", "Input a list of genome objects", GH_ParamAccess.item);
+            pManager.AddParameter(new PhenomeParameter(), "Phenome", "P", "Input a list of phenome objects", GH_ParamAccess.item);
 
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("genome", "genome", "this is a list of all of the input parameters that define the unique iteration", GH_ParamAccess.list);
-            pManager.AddTextParameter("phenome", "phenome", "this is a list of all of the output metrics that define the unique iteration", GH_ParamAccess.list);
-            pManager.AddTextParameter("identity", "identity", "this is a list of the generation and number of each iteration", GH_ParamAccess.list);
+            pManager.AddParameter(new GenomeParameter(),"Genomes", "G", "this is a list of all of the input parameters that define the unique iterations", GH_ParamAccess.list);
+            pManager.AddParameter(new PhenomeParameter(), "Phenomes", "P", "this is a list of all of the output metrics from each unique iterations", GH_ParamAccess.list);
+           
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            string mystring = null;
-            DA.GetData(0, ref mystring);
-            int myint = 0;
-            DA.GetData(1, ref myint);
+            /// get data
+            Genome genome = new Genome();
+            Phenome phenome = new Phenome();
+            DA.GetData(0, ref genome);
+            DA.GetData(1, ref phenome);
 
-            Genome myGene = new Genome(xxxxx);
-            myDict.Add(myGene.ToString(), myGene);
-            List<string> myList = new List<string>();
-            foreach (KeyValuePair<string, Genome> kvp in myDict)
+            /// add genomes and phenomes into a dictionary
+            gDict.Add(genome.ToString(), genome);
+            pDict.Add(phenome.ToString(), phenome);
+
+            /// create new lists
+            List<Genome> gList = new List<Genome>();
+            List<Phenome> pList = new List<Phenome>();
+
+            /// cylce through the entire dictionary and copy values (genome  / phenome objects) into output lists
+            foreach (KeyValuePair<string, Genome> kvp in gDict)
             {
-                myList.Add(kvp.Key);
+                gList.Add(kvp.Value);
             }
 
-            DA.SetDataList(0, myList);
+            foreach (KeyValuePair<string, Phenome> kvp in pDict)
+            {
+                pList.Add(kvp.Value);
+            }
+            
+            /// set output variables
+            DA.SetDataList(0, gList);
+            DA.SetDataList(1, pList);
 
         }
 
