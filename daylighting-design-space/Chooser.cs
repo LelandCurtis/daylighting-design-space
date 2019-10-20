@@ -77,6 +77,7 @@ namespace DaylightingDesignSpace
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             List<double> inputGeneSequence = new List<double>();
+            double[,] geneMatrix = new double[Params.Input.Count, 3];
 
             //get inputs and validate
             for (int i = 0; i < Params.Input.Count; i++)
@@ -85,11 +86,11 @@ namespace DaylightingDesignSpace
                 if (inputGeneSequence.Count < 3) { return; }
                 if (inputGeneSequence[0] >= inputGeneSequence[1]) { return; }
                 if (inputGeneSequence[0] + inputGeneSequence[2] >= inputGeneSequence[1]) { return; }
+            
 
                 if (this.m_iteration == 1)
                 {
                     //if first run do x
-                    double[,] geneMatrix = new double[Params.Input.Count, 3];
                     //max 
                     geneMatrix[i, 0] = inputGeneSequence[0];
 
@@ -98,6 +99,79 @@ namespace DaylightingDesignSpace
 
                     //halfway (max minus difference between max and mix)
                     geneMatrix[i, 2] = inputGeneSequence[1] - (0.5 * (inputGeneSequence[1] - inputGeneSequence[0]));
+                }
+            }
+
+
+
+            int numberOfGenes = geneMatrix.Length;
+                    int lastGeneIndex = numberOfGenes - 1;
+
+                    int totalPermutations = 1;
+
+                    for (int i = 0; i < numberOfGenes; i++)
+                    {
+                        totalPermutations = totalPermutations * geneMatrix[i].Count;
+                    }
+
+
+                    double[,] allPermutations = new double[totalPermutations, numberOfGenes];
+                    List<string> allPermsOutput = new List<string>();
+
+                    int[] tickers = new int[numberOfGenes];
+
+
+                    for (int j = 0; j < tickers.Length; j++)
+                    {
+                        tickers[j] = 0;
+                    }
+
+                    int engine = 0;
+
+                    //foreach ticker, if you are greater than or equal to the number of items in you, then reset to zero and make your parent increase by 1
+
+                    for (int j = 0; j < totalPermutations.Length; j++)
+                    {
+                        for (int jj = 0; jj < numberOfGenes; jj++)
+                        {
+                            if (tickers[jj] >= geneMatrix[jj].Count)
+                            {
+                                tickers[jj - 1]++;
+                                tickers[jj] = 0;
+                            }
+                        }
+
+                        //for each gene, add [j, geneIndex] = geneMatrix[j,tickers[jjj]
+                        for (int jjj = 0; jjj < numberOfGenes; jjj++)
+                        {
+                            allPermutations[j, jjj] = geneMatrix[j, tickers[jjj]];
+                        }
+
+                        allPermsOutput.Add("");
+
+                        for (int k = 0; k < numberOfGenes; k++)
+                        {
+                            allPermsOutput[j] += allPermutations[j, k];
+                        }
+
+                    }
+
+
+
+                    this.m_iteration++;
+
+                    //set outputs
+                    DA.SetDataList(0, allPermsOutput);
+
+
+
+
+
+
+
+
+
+
 
                 }
                 else if (this.m_iteration == 2)
@@ -116,64 +190,7 @@ namespace DaylightingDesignSpace
 
             }
 
-            int numberOfGenes = geneMatrix.Count;
-            int lastGeneIndex = numberOfGenes - 1;
 
-            int totalPermutations = 1;
-
-            for (int i = 0; i < numberOfGenes; i++)
-            {
-                totalPermutations = totalPermutations * geneMatrix[i].Count;
-            }
-
-
-            double[,] allPermutations = new double[totalPermutations, numberOfGenes];
-            List<string> allPermsOutput = new List<string>();
-
-            int[] tickers = new int[numberOfGenes];
-
-
-            for (int j = 0; j < tickers.Length; j++)
-            {
-                tickers[j] = 0;
-            }
-
-            int engine = 0;
-
-            //foreach ticker, if you are greater than or equal to the number of items in you, then reset to zero and make your parent increase by 1
-
-            for (int j = 0; j < totalPermutations.Length; j++)
-            {
-                for (int jj = 0; jj < numberOfGenes; jj++)
-                {
-                    if (tickers[jj] >= geneMatrix[jj].Count)
-                    {
-                        tickers[jj - 1]++;
-                        tickers[jj] = 0;
-                    }
-                }
-
-                //for each gene, add [j, geneIndex] = geneMatrix[j,tickers[jjj]
-                for (int jjj = 0; jjj < numberOfGenes; jjj++)
-                {
-                    allPermutations[j, jjj] = geneMatrix[j, tickers[jjj]];
-                }
-
-                allPermsOutput.Add("");
-
-                for (int k = 0; k < numberOfGenes; k++)
-                {
-                    allPermsOutput[j] += allPermutations[j, k];
-                }
-
-            }
-
-
-
-            this.m_iteration++;
-
-            //set outputs
-            DA.SetDataList(0, allPermsOutput);
         }
 
 
