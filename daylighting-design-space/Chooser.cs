@@ -81,7 +81,7 @@ namespace DaylightingDesignSpace
             //get inputs and validate
             for (int i = 0; i < Params.Input.Count; i++)
             {
-                if(!DA.GetDataList(i, inputGeneSequence)) { return; }
+                if (!DA.GetDataList(i, inputGeneSequence)) { return; }
                 if (inputGeneSequence.Count < 3) { return; }
                 if (inputGeneSequence[0] >= inputGeneSequence[1]) { return; }
                 if (inputGeneSequence[0] + inputGeneSequence[2] >= inputGeneSequence[1]) { return; }
@@ -103,7 +103,7 @@ namespace DaylightingDesignSpace
                 else if (this.m_iteration == 2)
                 {
                     //if second run, do y
-                    
+
 
                 }
                 else
@@ -121,19 +121,20 @@ namespace DaylightingDesignSpace
 
             int totalPermutations = 1;
 
-            for( int i =0; i< numberOfGenes; i++)
+            for (int i = 0; i < numberOfGenes; i++)
             {
                 totalPermutations = totalPermutations * geneMatrix[i].Count;
             }
 
 
             double[,] allPermutations = new double[totalPermutations, numberOfGenes];
-            List<string> allPermsOutput = new List<string>(); 
+            List<string> allPermsOutput = new List<string>();
 
             int[] tickers = new int[numberOfGenes];
 
 
-            for (int j = 0; j < tickers.Length; j++){
+            for (int j = 0; j < tickers.Length; j++)
+            {
                 tickers[j] = 0;
             }
 
@@ -143,7 +144,7 @@ namespace DaylightingDesignSpace
 
             for (int j = 0; j < totalPermutations.Length; j++)
             {
-                for (int jj=0; jj< numberOfGenes; jj++)
+                for (int jj = 0; jj < numberOfGenes; jj++)
                 {
                     if (tickers[jj] >= geneMatrix[jj].Count)
                     {
@@ -167,7 +168,7 @@ namespace DaylightingDesignSpace
 
             }
 
-            
+
 
             this.m_iteration++;
 
