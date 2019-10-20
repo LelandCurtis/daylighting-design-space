@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace DaylightingDesignSpace
 {
-    public class ValueComparer : GH_Component
+    public class ValueComparer : GH_Component, IGH_VariableParameterComponent
     {
 
         public ValueComparer()
@@ -15,9 +15,6 @@ namespace DaylightingDesignSpace
               "DDS", "Cat01")
         {
         }
-
-        public Dictionary<string, Gene> myDict = new Dictionary<string, Gene>();
-
 
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
@@ -33,6 +30,7 @@ namespace DaylightingDesignSpace
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            /*
             string mystring = null;
             DA.GetData(0, ref mystring);
             int myint = 0;
@@ -47,7 +45,32 @@ namespace DaylightingDesignSpace
             }
 
             DA.SetDataList(0, myList);
-           
+           */
+        }
+
+        public bool CanInsertParameter(GH_ParameterSide side, int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CanRemoveParameter(GH_ParameterSide side, int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IGH_Param CreateParameter(GH_ParameterSide side, int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DestroyParameter(GH_ParameterSide side, int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void VariableParameterMaintenance()
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
