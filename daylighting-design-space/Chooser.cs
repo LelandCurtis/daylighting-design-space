@@ -12,7 +12,7 @@ namespace DaylightingDesignSpace
         public Chooser()
           : base("Chooser", "Chooser",
               "Description",
-              "Category", "Subcategory")
+              "DDS", "Cat01")
         {
         }
 
@@ -27,7 +27,7 @@ namespace DaylightingDesignSpace
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("name", "nickname", "desc", GH_ParamAccess.item);
+            pManager.AddTextParameter("name", "nickname", "desc", GH_ParamAccess.list);
             pManager.AddBooleanParameter("Restart", "", "desc", GH_ParamAccess.item);
         }
 
@@ -103,7 +103,7 @@ namespace DaylightingDesignSpace
                 else if (this.m_iteration == 2)
                 {
                     //if second run, do y
-
+                    
 
                 }
                 else
@@ -114,27 +114,65 @@ namespace DaylightingDesignSpace
                 }
 
 
+            }
+
+            int numberOfGenes = geneMatrix.Count;
+            int lastGeneIndex = numberOfGenes - 1;
+
+            int totalPermutations = 1;
+
+            for( int i =0; i< numberOfGenes; i++)
+            {
+                totalPermutations = totalPermutations * geneMatrix[i].Count;
+            }
 
 
+            double[,] allPermutations = new double[totalPermutations, numberOfGenes];
+            List<string> allPermsOutput = new List<string>(); 
+
+            int[] tickers = new int[numberOfGenes];
+
+
+            for (int j = 0; j < tickers.Length; j++){
+                tickers[j] = 0;
+            }
+
+            int engine = 0;
+
+            //foreach ticker, if you are greater than or equal to the number of items in you, then reset to zero and make your parent increase by 1
+
+            for (int j = 0; j < totalPermutations.Length; j++)
+            {
+                for (int jj=0; jj< numberOfGenes; jj++)
+                {
+                    if (tickers[jj] >= geneMatrix[jj].Count)
+                    {
+                        tickers[jj - 1]++;
+                        tickers[jj] = 0;
+                    }
+                }
+
+                //for each gene, add [j, geneIndex] = geneMatrix[j,tickers[jjj]
+                for (int jjj = 0; jjj < numberOfGenes; jjj++)
+                {
+                    allPermutations[j, jjj] = geneMatrix[j, tickers[jjj]];
+                }
+
+                allPermsOutput.Add("");
+
+                for (int k = 0; k < numberOfGenes; k++)
+                {
+                    allPermsOutput[j] += allPermutations[j, k];
+                }
 
             }
 
+            
+
             this.m_iteration++;
 
-
-            
-
-
-            
-
-
-            
-
-
-
-
             //set outputs
-
+            DA.SetDataList(0, allPermsOutput);
         }
 
 

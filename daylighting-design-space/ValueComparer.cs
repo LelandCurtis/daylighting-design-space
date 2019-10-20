@@ -16,6 +16,8 @@ namespace DaylightingDesignSpace
         {
         }
 
+        private int m_iteration = 1;
+        private bool m_restart = false;
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
@@ -26,6 +28,48 @@ namespace DaylightingDesignSpace
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddTextParameter("output1", "test output", "this is a description", GH_ParamAccess.list);
+        }
+
+        public bool CanInsertParameter(GH_ParameterSide side, int index)
+        {
+            //Allow parameter insertion on "input" side only
+            if (side == 0) { return true; }
+            return false;
+        }
+
+        public bool CanRemoveParameter(GH_ParameterSide side, int index)
+        {
+            //Allow parameter deletion only on the input side and only if it is not the [P] input or the last of the sort patterns
+            if ((side == 0) && (Params.Input.Count > 1)) { return true; }
+            return false;
+        }
+
+        public IGH_Param CreateParameter(GH_ParameterSide side, int index)
+        {
+            IGH_Param param = new Grasshopper.Kernel.Parameters.Param_Number();
+
+            string x = "";
+            if (index < 10) { x = "0" + index.ToString(); }
+            else { x = index.ToString(); }
+
+            param.Name = "Gene_" + x;
+            param.NickName = "G_" + x;
+            param.MutableNickName = false;
+            param.Description = "One gene, must be formated as list with three items, 0:min, 1:max, 2:step_size";
+            param.Access = GH_ParamAccess.list;
+
+            return param;
+        }
+
+        public bool DestroyParameter(GH_ParameterSide side, int index)
+        {
+            this.m_restart = true;
+            return true;
+        }
+
+        public void VariableParameterMaintenance()
+        {
+            throw new NotImplementedException();
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -48,30 +92,8 @@ namespace DaylightingDesignSpace
            */
         }
 
-        public bool CanInsertParameter(GH_ParameterSide side, int index)
-        {
-            throw new NotImplementedException();
-        }
 
-        public bool CanRemoveParameter(GH_ParameterSide side, int index)
-        {
-            throw new NotImplementedException();
-        }
 
-        public IGH_Param CreateParameter(GH_ParameterSide side, int index)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool DestroyParameter(GH_ParameterSide side, int index)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void VariableParameterMaintenance()
-        {
-            throw new NotImplementedException();
-        }
 
         /// <summary>
         /// Provides an Icon for the component.
