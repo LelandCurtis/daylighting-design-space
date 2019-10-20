@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MyProject1ML.Model;
-//using MyProject1ML.ConsoleApp;
+using MyProject1ML.ConsoleApp;
 using Grasshopper.Kernel;
 using System.Linq;
 //using Microsoft.ML.Trainers;
@@ -54,10 +54,10 @@ namespace MyProject1
         /// to store data in output parameters.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            //ModelBuilder model = new ModelBuilder();
-            //model.CreateModel();
+            //ModelBuilder model = ModelBuilder();
+            ModelBuilder.CreateModel();                 
             // Add input data
-            
+
             ModelInput sampleData = new ModelInput() {
                 In_location = "PH", In_Orientation = 0, In_ObstructAngle = 0, In_Width = 40, In_Depth = 40, In_Ceiling_Height = 9, In_Wall_Thickness = (float)0.5, In_Window_Width = 4,
                 In_Window_Bottom_Sill = (float)2.5, In_Window_Top_Sill = (float)8.7, In_Spacing_Between_Windows = 1, In_WWR = (float)0.4822222, In_Ceiling_Reflectance = 80, In_Wall_Reflectance = 60,
