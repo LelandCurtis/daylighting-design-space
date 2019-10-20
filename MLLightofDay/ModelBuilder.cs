@@ -9,15 +9,18 @@ using Microsoft.ML.Trainers.LightGbm;
 
 namespace DaylightML
 {
+
+    //[DllImport(@"C:\Users\Matt\source\repos\dds\daylighting-design-space\daylighting-design-space\bin\Microsoft.ML.LightGbm.dll")]
+
     public static class ModelBuilder
     {
         private static MLContext mlContext = new MLContext(seed: 1);
-        public static string TRAINING_DATA_FILEPATH = AssemblyDirectory() + @"2019-0925 Daylighting Design Space - Trainer.csv";
+        public static string TRAINING_DATA_FILEPATH = AssemblyDirectory() + @"\DDSTrainingData.csv";
         private static string TEST_DATA_FILEPATH = AssemblyDirectory() + @"MLModel.zip";
 
         public static string Foobar() { return TRAINING_DATA_FILEPATH; }
 
-        public static void CreateModel()
+        public static ITransformer CreateModel()
         {
 
             // Load training data
@@ -29,12 +32,14 @@ namespace DaylightML
                                                 allowSparse: false);
 
             //load testing data
+            /*
             IDataView testDataView = mlContext.Data.LoadFromTextFile<Model.ModelInput>(
                                             path: TEST_DATA_FILEPATH,
                                             hasHeader: true,
                                             separatorChar: ',',
                                             allowQuoting: true,
                                             allowSparse: false);
+            */
 
             // Build training pipeline
             IEstimator<ITransformer> trainingPipeline = BuildTrainingPipeline(mlContext);
@@ -44,7 +49,8 @@ namespace DaylightML
             
             // Train Model
             ITransformer mlModel = TrainModel(mlContext, baseTrainingDataView, trainingPipeline);
-            
+
+            return mlModel;
             // Save model
             //SaveModel(mlContext, mlModel, MODEL_FILEPATH, trainingDataView.Schema);
             
@@ -54,8 +60,8 @@ namespace DaylightML
         {
             // Data process configuration with pipeline data transformations 
             var dataProcessPipeline = mlContext.Transforms.Conversion.MapValueToKey("out:sDA300", "out:sDA300")
-                                        .Append(mlContext.Transforms.Categorical.OneHotEncoding(new[] { new InputOutputColumnPair("in:location", "in:location") }));
-                                        //.Append(mlContext.Transforms.Concatenate("Features", new[] { "in:location", "in:Orientation", "in:ObstructAngle", "in:Width", "in:Depth", "in:Ceiling Height", "in:Wall Thickness", "in:Window Width", "in:Window Bottom Sill", "in:Window Top Sill", "in:Spacing Between Windows", "in:WWR", "in:Ceiling Reflectance", "in:Wall Reflectance", "in:Floor Reflectance", "in:Shade Trigger Distance (1000 direct)" }));
+                                        .Append(mlContext.Transforms.Categorical.OneHotEncoding(new[] { new InputOutputColumnPair("in:location", "in:location") }))
+                                        .Append(mlContext.Transforms.Concatenate("Features", new[] { "in:location", "in:Orientation", "in:ObstructAngle", "in:Width", "in:Depth", "in:Ceiling Height", "in:Wall Thickness", "in:Window Width", "in:Window Bottom Sill", "in:Window Top Sill", "in:Spacing Between Windows", "in:WWR", "in:Ceiling Reflectance", "in:Wall Reflectance", "in:Floor Reflectance", "in:Shade Trigger Distance (1000 direct)" }));
 
             // Set the training algorithm 
             var trainer = mlContext.MulticlassClassification.Trainers.LightGbm(labelColumnName: "out:sDA300", featureColumnName: "Features")
@@ -113,9 +119,22 @@ namespace DaylightML
            
         }
 
-
+        /*
         public static Model.ModelOutput Consume(MLContext mlContext, ITransformer mlModel, Model.ModelInput input) {
 
+            
+
+            // Load model & create prediction engine
+            var predEngine = mlContext.Model.CreatePredictionEngine<Model.ModelInput, Model.ModelOutput>(mlModel);
+
+            // Use model to make prediction on input data
+            Model.ModelOutput result = predEngine.Predict(input);
+            return result;
+        }
+        */
+
+        public static Model.ModelOutput Consume(ITransformer mlModel, Model.ModelInput input)
+        {
             // Load model & create prediction engine
             var predEngine = mlContext.Model.CreatePredictionEngine<Model.ModelInput, Model.ModelOutput>(mlModel);
 

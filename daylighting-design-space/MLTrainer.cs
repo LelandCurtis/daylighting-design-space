@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 using DaylightML;
+using Microsoft.ML;
 
 namespace daylighting_design_space
 {
@@ -41,10 +42,12 @@ namespace daylighting_design_space
         {
 
             //ModelBuilder model = ModelBuilder();
-            //ModelBuilder.CreateModel();
-            // Add input data
-            /*
-            Model.ModelInput sampleData = new ModelInput()
+            ITransformer model = ModelBuilder.CreateModel();
+            
+            
+            
+            // Add input (test) data
+            DaylightML.Model.ModelInput sampleData = new DaylightML.Model.ModelInput()
             {
                 In_location = "PH",
                 In_Orientation = 0,
@@ -63,9 +66,15 @@ namespace daylighting_design_space
                 In_Floor_Reflectance = 20,
                 In_Shade_Trigger_Distance__1000_direct_ = 1
             };
-            // Load model and predict output of sample data
-            ModelOutput result = ConsumeModel.Predict(sampleData);
+
+            // Predict output of sample data
+            DaylightML.Model.ModelOutput result = ModelBuilder.Consume(model, sampleData);
             DA.SetData(0, (double)result.Prediction);
+
+
+            
+            // Evaluate quality of Model
+            //Evaluate(mlContext, trainingDataView, trainingPipeline);
 
             List<double> newScore = new List<double>();
 
@@ -73,10 +82,10 @@ namespace daylighting_design_space
             {
                 newScore.Add((double)y);
             }
-            */
+            
             string testString = ModelBuilder.Foobar();
 
-            //DA.SetDataList(1, newScore);
+            DA.SetDataList(1, newScore);
             DA.SetData(2, testString);
         }
 
