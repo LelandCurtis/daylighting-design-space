@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "daylighting-design-space", "daylighting-design-space\daylighting-design-space.csproj", "{A8A59307-9CC6-4799-A0D3-12BFF70690E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaylightingDesignSpace", "daylighting-design-space\DaylightingDesignSpace.csproj", "{A8A59307-9CC6-4799-A0D3-12BFF70690E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

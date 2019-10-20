@@ -56,6 +56,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SimRepo.cs" />
     <Compile Include="Phenome.cs" />
     <Compile Include="Genome.cs" />
     <Compile Include="ddsinfo.cs" />
