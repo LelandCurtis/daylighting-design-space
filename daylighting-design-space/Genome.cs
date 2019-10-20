@@ -15,10 +15,10 @@ namespace DaylightingDesignSpace
         public int location;
         public double orient;
         public double obstructAng;
-        public double width;
         public double depth;
         public double ceilingHeight;
         public double wallThick;
+        public double windowWidth;
         public double windowBsill;
         public double windowTsill;
         public double spaceBetween;
@@ -31,15 +31,15 @@ namespace DaylightingDesignSpace
             return this.ToString();
         }
 
-        public Genome(int location, double orient, double obstructAng, double width, double depth, double ceilingHeight, double wallThick, double windowBsill, double windowTsill, double spaceBetween, double wwr, double shadeTrig)
+        public Genome(int location, double orient, double obstructAng, double depth, double ceilingHeight, double wallThick, double windowWidth, double windowBsill, double windowTsill, double spaceBetween, double wwr, double shadeTrig)
         {
             this.location = location;
             this.orient = orient;
             this.obstructAng = obstructAng;
-            this.width = width;
             this.depth = depth;
             this.ceilingHeight = ceilingHeight;
             this.wallThick = wallThick;
+            this.windowWidth = windowWidth;
             this.windowBsill = windowBsill;
             this.windowTsill = windowTsill;
             this.spaceBetween =  spaceBetween;
@@ -57,10 +57,10 @@ namespace DaylightingDesignSpace
             output += "[" + "location, " + this.location.ToString() + "]";
             output += "[" + "orient, " + this.orient.ToString() + "]";
             output += "[" + "obstructAng, " + this.obstructAng.ToString() + "]";
-            output += "[" + "width, " + this.width.ToString() + "]";
             output += "[" + "depth, " + this.depth.ToString() + "]";
             output += "[" + "ceilingHeight, " + this.ceilingHeight.ToString() + "]";
             output += "[" + "wallThick, " + this.wallThick.ToString() + "]"
+                + "[" + "windowWidth, " + this.windowWidth.ToString() + "]"
                 + "[" + "windowBsill, " + this.windowBsill.ToString() + "]"
                 + "[" + "windowTsill, " + this.windowTsill.ToString() + "]"
                 + "[" + "spaceBetween, " + this.spaceBetween.ToString() + "]"
@@ -75,10 +75,10 @@ namespace DaylightingDesignSpace
             return new Genome(this.location,
             this.orient,
             this.obstructAng,
-            this.width,
             this.depth,
             this.ceilingHeight,
             this.wallThick,
+            this.windowWidth,
             this.windowBsill,
             this.windowTsill,
             this.spaceBetween,
