@@ -134,13 +134,14 @@ namespace DaylightingDesignSpace
             {
                 for (int jj = 0; jj < numberOfGenes; jj++)
                 {
-                    /*
-                    if (tickers[jj] >= geneMatrix[jj].Count)
+
+                //TO DO 6 IS WRONG
+                    if (tickers[jj] >= 6)
                     {
                         tickers[jj - 1]++;
                         tickers[jj] = 0;
                     }
-                */
+                
                 }
 
                 //for each gene, add [j, geneIndex] = geneMatrix[j,tickers[jjj]
