@@ -15,7 +15,7 @@ namespace DaylightML
         public static string TRAINING_DATA_FILEPATH = AssemblyDirectory() + @"2019-0925 Daylighting Design Space - Trainer.csv";
         private static string TEST_DATA_FILEPATH = AssemblyDirectory() + @"MLModel.zip";
 
-
+        public static string Foobar() { return TRAINING_DATA_FILEPATH; }
 
         public static void CreateModel()
         {

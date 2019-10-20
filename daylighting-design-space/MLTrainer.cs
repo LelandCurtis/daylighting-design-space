@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
-
+using DaylightML;
 
 namespace daylighting_design_space
 {
@@ -29,6 +29,7 @@ namespace daylighting_design_space
         {
             pManager.AddNumberParameter("Prediction", "Prediction", "Prediction", GH_ParamAccess.item);
             pManager.AddNumberParameter("Score", "Score", "Score", GH_ParamAccess.list);
+            pManager.AddTextParameter("text", "text", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -38,7 +39,7 @@ namespace daylighting_design_space
         /// to store data in output parameters.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            
+
             //ModelBuilder model = ModelBuilder();
             //ModelBuilder.CreateModel();
             // Add input data
@@ -72,9 +73,11 @@ namespace daylighting_design_space
             {
                 newScore.Add((double)y);
             }
+            */
+            string testString = ModelBuilder.Foobar();
 
-            DA.SetDataList(1, newScore);
-    */
+            //DA.SetDataList(1, newScore);
+            DA.SetData(2, testString);
         }
 
         /// <summary>

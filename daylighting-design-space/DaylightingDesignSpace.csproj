@@ -69,9 +69,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MLLightofDay\MLLightofDay.csproj">
+    <ProjectReference Include="..\MLLightofDay\DaylightML.csproj">
       <Project>{a5ed6173-8fc6-4bc1-8226-b73627c326bc}</Project>
-      <Name>MLLightofDay</Name>
+      <Name>DaylightML</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
