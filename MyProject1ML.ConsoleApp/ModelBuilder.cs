@@ -13,7 +13,7 @@ namespace MyProject1ML.ConsoleApp
     public static class ModelBuilder
     {
         private static string TRAIN_DATA_FILEPATH = @"C:\Users\Deaton\Desktop\D\CODE\Hackathon\2019-0925 Daylighting Design Space - Trainer.csv";
-        private static string MODEL_FILEPATH = @"C:\Users\Deaton\source\repos\MyProject1\MyProject1ML.Model\MLModel.zip";
+        private static string MODEL_FILEPATH = @"C:/Users/Deaton/source/repos/MyProject1/MyProject1ML.Model/MLModel.zip";
 
         //some ote
 
@@ -23,7 +23,6 @@ namespace MyProject1ML.ConsoleApp
 
         public static void CreateModel()
         {
-            
             // Load Data
             IDataView trainingDataView = mlContext.Data.LoadFromTextFile<ModelInput>(
                                             path: TRAIN_DATA_FILEPATH,
@@ -34,13 +33,11 @@ namespace MyProject1ML.ConsoleApp
 
             // Build training pipeline
             IEstimator<ITransformer> trainingPipeline = BuildTrainingPipeline(mlContext);
-            /*
+
             // Evaluate quality of Model
+            Evaluate(mlContext, trainingDataView, trainingPipeline);
 
-                Evaluate(mlContext, trainingDataView, trainingPipeline);
 
-
-            /*
             // Train Model
             ITransformer mlModel = 
                 TrainModel(mlContext, 
@@ -49,7 +46,6 @@ namespace MyProject1ML.ConsoleApp
 
             // Save model
             SaveModel(mlContext, mlModel, MODEL_FILEPATH, trainingDataView.Schema);
-            */
         }
 
         public static IEstimator<ITransformer> BuildTrainingPipeline(MLContext mlContext)
